@@ -11,6 +11,8 @@ abre y funciona **sin internet, sin backend y sin credenciales**.
 > y el resultado: replica **todas las funciones y el catálogo real** (602 productos) del
 > POS oficial, corriendo por completo en el navegador.
 
+![Pantalla de Venta con búsqueda del catálogo real, promociones y varios tickets](docs/img/venta.png)
+
 ---
 
 ## Cómo correrlo (30 segundos)
@@ -67,6 +69,22 @@ redondeo, empaques, permiso de devoluciones).
 
 **Respaldo** — como todo vive en este equipo, hay **Exportar / Importar** respaldo `.json`
 y "Empezar de cero". (En la versión de nube, el respaldo lo da Supabase.)
+
+---
+
+## Capturas
+
+| Cobro con cambio | Ticket imprimible |
+|---|---|
+| ![Cobro](docs/img/cobro.png) | ![Ticket](docs/img/ticket.png) |
+
+| Corte de caja (turno) | Inventario por categorías |
+|---|---|
+| ![Corte de caja](docs/img/corte.png) | ![Inventario](docs/img/inventario.png) |
+
+Configuración por tienda (identidad, apariencia, envases, ticket, reglas, usuarios):
+
+![Configuración](docs/img/configuracion.png)
 
 ---
 
