@@ -1,0 +1,59 @@
+/* ── Tokens de marca — POS Modelorama "La Lupita" (Nodo Digital) ──────────────
+   Paleta e identidad aprobadas (ver CONTEXTO.md §7). Único lugar donde viven
+   los colores/tipografías: cambiar aquí re-tematiza toda la app. */
+
+:root {
+  /* Colores base */
+  --fondo:            #D1DEEB;  /* fondo general (del logo real) */
+  --tinta:            #0E1524;  /* texto principal / íconos */
+  --tinta-tenue:      #525B6A;  /* texto secundario */
+  --borde:            rgba(14, 21, 36, 0.13);   /* divisores 12–15% */
+  --borde-fuerte:     rgba(14, 21, 36, 0.22);
+
+  /* Acentos */
+  --ambar:            #DB984C;  /* CTAs / botones primarios */
+  --ambar-tinta:      #7A4E12;  /* texto sobre ámbar tenue */
+  --verde-dato:       #52A08D;  /* dato + glow del cursor (NO ámbar, a propósito) */
+  --terracota:        #C56A4E;  /* alertas / peligro */
+  --terracota-tinta:  #7A3B28;
+
+  /* Estados semánticos */
+  --ok:               #52A08D;
+  --advertencia:      #DB984C;
+  --peligro:          #C56A4E;
+
+  /* Color de la LÍNEA del carrito en Venta según su estado. Configurables por el
+     admin (aplicarTema los sobreescribe desde APARIENCIA). El fondo de la línea usa
+     estos colores a baja opacidad (color-mix), el texto se queda legible. */
+  --venta-promo:      #52A08D;
+  --venta-combo:      #DB984C;
+  --venta-agotado:    #C56A4E;
+  --venta-bajo:       #C79A3A;
+
+  /* Glassmorphism */
+  --glass-bg:         rgba(255, 255, 255, 0.42);
+  --glass-bg-fuerte:  rgba(255, 255, 255, 0.62);
+  --glass-borde:      rgba(255, 255, 255, 0.55);
+  --glass-blur:       18px;
+  --sombra:           0 8px 30px rgba(14, 21, 36, 0.12);
+  --sombra-suave:     0 2px 10px rgba(14, 21, 36, 0.08);
+
+  /* Glow verde-dato que sigue al cursor sobre elementos accionables */
+  --glow:             rgba(82, 160, 141, 0.28);
+
+  /* Tipografías de marca Nodo */
+  --font-display: "Fraunces", "Georgia", serif;
+  --font-ui:      "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono:    "IBM Plex Mono", "SFMono-Regular", "Consolas", monospace;
+
+  /* Radios / espacios */
+  --r-sm: 8px;
+  --r-md: 14px;
+  --r-lg: 22px;
+  --r-pill: 999px;
+
+  --sp-1: 4px;  --sp-2: 8px;  --sp-3: 12px; --sp-4: 16px;
+  --sp-5: 24px; --sp-6: 32px; --sp-7: 48px; --sp-8: 64px;
+
+  --header-h: 68px;
+}

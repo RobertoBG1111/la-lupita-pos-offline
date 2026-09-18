@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>La Lupita — Punto de venta (local)</title>
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8D%BA%3C/text%3E%3C/svg%3E" />
+
+  <!-- PWA: app instalable (ícono en escritorio, ventana propia sin navegador). -->
+  <link rel="manifest" href="manifest.webmanifest" />
+  <meta name="theme-color" content="#DB984C" />
+  <link rel="apple-touch-icon" href="assets/icon-192.png" />
+
+  <!-- Fuentes de marca vendorizadas localmente (sin CDN) para funcionar offline. -->
+  <link rel="stylesheet" href="styles/fonts.css" />
+  <link rel="stylesheet" href="styles/tokens.css" />
+  <link rel="stylesheet" href="styles/base.css" />
+  <link rel="stylesheet" href="styles/ticket.css" />
+</head>
+<body>
+  <div id="aurora" aria-hidden="true">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+    <div class="blob b3"></div>
+  </div>
+
+  <div id="app"><div class="cargando">Cargando…</div></div>
+  <div id="toasts"></div>
+
+  <script type="module" src="main.js"></script>
+</body>
+</html>

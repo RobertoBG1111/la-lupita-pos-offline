@@ -1,0 +1,42 @@
+/* ── Ticket imprimible — POS Modelorama "La Lupita" ─────────────────────────
+   Formato angosto tipo recibo térmico. Alto contraste, SIN aurora ni glow.
+   Se ve en pantalla dentro de un "papel" y se manda a imprimir con window.print(). */
+
+.ticket-wrap { display: grid; place-items: start center; padding: var(--sp-5) 0; }
+
+.ticket {
+  width: 300px; background: #fff; color: #0E1524;
+  font-family: var(--font-mono); font-size: 12px; line-height: 1.5;
+  padding: 20px 18px; box-shadow: var(--sombra); border-radius: 6px;
+}
+/* Ancho configurable (58mm angosto / 80mm ancho). En pantalla es aproximado. */
+.ticket.ancho-58 { width: 226px; }
+.ticket.ancho-80 { width: 300px; }
+.ticket .t-centro { text-align: center; }
+.ticket h3 { font-family: var(--font-display); font-size: 18px; margin: 0; text-align: center; }
+.ticket .t-sub { text-align: center; color: #525B6A; font-size: 11px; margin: 2px 0 10px; }
+.ticket .t-sep { border: none; border-top: 1px dashed #9aa2ad; margin: 10px 0; }
+.ticket .t-fila { display: flex; justify-content: space-between; gap: 10px; }
+.ticket .t-fila.t-desc { color: #2f6455; font-size: 11px; }
+.ticket .t-item { margin: 6px 0; }
+.ticket .t-item .t-nom { display: flex; justify-content: space-between; gap: 8px; }
+.ticket .t-item small { color: #525B6A; }
+.ticket .t-total { font-size: 15px; font-weight: 600; }
+.ticket .t-pagos { margin-top: 8px; }
+.ticket .t-pie { text-align: center; color: #525B6A; font-size: 10px; margin-top: 14px; }
+
+.ticket-acciones { display: flex; gap: 10px; justify-content: center; margin-top: var(--sp-4); }
+
+/* ── Impresión: solo el ticket, a todo contraste ──────────────────────────── */
+@media print {
+  body * { visibility: hidden !important; }
+  #aurora, .header, .ticket-acciones { display: none !important; }
+  .ticket, .ticket * { visibility: visible !important; }
+  .ticket {
+    position: absolute; left: 0; top: 0; width: 72mm; box-shadow: none; border-radius: 0;
+    padding: 4mm 3mm; font-size: 11px;
+  }
+  .ticket.ancho-58 { width: 48mm; }
+  .ticket.ancho-80 { width: 72mm; }
+  @page { size: auto; margin: 0; }
+}
