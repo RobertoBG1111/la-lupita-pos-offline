@@ -1,0 +1,20 @@
+# Dependencias (esta app no usa ninguna en runtime; solo por si acaso)
+node_modules/
+
+# Artefactos del sistema operativo / editores
+.DS_Store
+Thumbs.db
+*.swp
+*~
+.vscode/
+.idea/
+
+# Python
+__pycache__/
+*.pyc
+
+# Respaldos generados por la propia app
+respaldo-*.json
+
+# Configuración local del entorno de Claude Code (no del proyecto)
+.claude/settings.local.json
