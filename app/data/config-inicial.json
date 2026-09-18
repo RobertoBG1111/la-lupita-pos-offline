@@ -1,0 +1,97 @@
+{
+  "REGLAS": {
+    "empaques": "preguntar",
+    "redondeo": 0,
+    "metodos_pago": [
+      {
+        "id": "efectivo",
+        "activo": true,
+        "etiqueta": "Efectivo"
+      },
+      {
+        "id": "tarjeta",
+        "activo": true,
+        "etiqueta": "Tarjeta"
+      },
+      {
+        "id": "transferencia",
+        "activo": true,
+        "etiqueta": "Transferencia"
+      }
+    ],
+    "devoluciones_rol": "admin",
+    "permitir_generico": true
+  },
+  "TICKET": {
+    "pie": "sistema por Nodo · usanodo.com",
+    "ancho": "58",
+    "mostrar": {
+      "hora": true,
+      "folio": true,
+      "cajero": true,
+      "deposito": true
+    },
+    "agradecimiento": "¡Gracias por su compra!"
+  },
+  "ENVASES": [
+    {
+      "clave": "refresco_grande",
+      "nombre": "Refresco grande",
+      "deposito": 8
+    },
+    {
+      "clave": "individual",
+      "nombre": "Refresco individual",
+      "deposito": 5
+    },
+    {
+      "clave": "mega",
+      "nombre": "Mega / misil",
+      "deposito": 10
+    },
+    {
+      "clave": "media_cuarto",
+      "nombre": "Media / cuarto",
+      "deposito": 5
+    }
+  ],
+  "NEGOCIO": {
+    "logo": "assets/logo.png",
+    "lugar": "Tixpéhual, Yucatán",
+    "nombre": "Modelorama",
+    "sucursal": "La Lupita",
+    "pieTicket": "sistema por Nodo · usanodo.com"
+  },
+  "APARIENCIA": {
+    "fondo": "#D1DEEB",
+    "acento": "#DB984C",
+    "linea_bajo": "#C79A3A",
+    "linea_combo": "#fbff00",
+    "linea_promo": "#52A08D",
+    "linea_agotado": "#C56A4E"
+  },
+  "CATEGORIAS": [
+    "Corona",
+    "Coca Cola",
+    "Pepsi",
+    "Tequila",
+    "Ron",
+    "Whisky",
+    "Mezcal",
+    "Vodka",
+    "Licor",
+    "Licor de caña",
+    "Bebidas alcohólicas",
+    "Bebidas Energéticas",
+    "Cigarros",
+    "Sabritas",
+    "Barcel",
+    "Gamesa",
+    "Botana regional",
+    "Dulces",
+    "Galletas",
+    "Jugos",
+    "Hielo",
+    "Abarrote"
+  ]
+}
