@@ -17,4 +17,8 @@ __pycache__/
 respaldo-*.json
 
 # Configuración local del entorno de Claude Code (no del proyecto)
-.claude/settings.local.json
+.claude/
+
+# Documentos internos de desarrollo (no se publican; se conservan en local)
+PROMPT_PORTAR_AL_OFICIAL.md
+BITACORA.md

@@ -8,7 +8,7 @@ clara**: front-end compartido, capa de datos intercambiable.
 ## Contexto y objetivo
 
 `la_lupita_offline` empezó como banco de pruebas y fue la **referencia** desde la que se
-portaron ~23 mejoras al producto oficial (ver [`../BITACORA.md`](../BITACORA.md)). Después
+portaron ~23 mejoras al producto oficial (en producción). Después
 el oficial siguió creciendo. Esta versión vuelve a **igualarlo**: replica **todas las
 funciones y el catálogo real** (602 productos), pero **100 % local** — sin backend ni
 credenciales — para poder abrirse y demostrarse en cualquier equipo.

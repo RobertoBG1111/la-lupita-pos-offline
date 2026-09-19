@@ -161,7 +161,7 @@ app/
   data/                       catalogo.json + config-inicial.json (semilla)
   styles/                     tokens, base, ticket, fuentes locales
   sw.js, manifest.webmanifest, assets/   soporte PWA
-docs/                         BITACORA + arquitectura
+docs/                         arquitectura + capturas
 serve.py, Abrir POS.bat       servidor estático local (solo desarrollo)
 ```
 
