@@ -1,7 +1,7 @@
 # Modelorama "La Lupita" — POS (demostración pública)
 
 **Demostración autocontenida de un punto de venta real en producción.** El sistema real
-—construido para la tienda Modelorama **"La Lupita"** (Tixpéhual, Yucatán)— corre como **PWA
+construido para la tienda Modelorama **"La Lupita"** (Tixpéhual, Yucatán) corre como **PWA
 sobre Supabase** (Postgres + Auth + Edge Functions) y está **en uso en el mostrador**. Este
 repositorio es una **build de demostración** de ese mismo proyecto, corriendo **100 % en el
 navegador** (IndexedDB, sin backend ni credenciales), para **enseñar la funcionalidad real
@@ -9,7 +9,7 @@ sin exponer ni arriesgar el POS de producción**.
 
 > Mismo front-end y mismo motor de precios que el sistema real; lo único que cambia es la
 > **capa de datos** (nube → local). Por eso la demostración es **fiel** a la funcionalidad
-> real —con el **catálogo real** (602 productos)— y a la vez **no puede comprometer la
+> real con el **catálogo real** (602 productos) y a la vez **no puede comprometer la
 > tienda**: aquí no hay credenciales, ni datos de producción, ni backend que tocar.
 
 ![Pantalla de Venta con búsqueda del catálogo real, promociones y varios tickets](docs/img/venta.png)
@@ -24,8 +24,8 @@ turno y por día, **promociones, combos y envases retornables**, y **varios caje
 roles (admin/cajero). Con dos restricciones propias del entorno:
 
 1. **La venta no puede detenerse si se cae el internet.** La conexión en la zona es
-   intermitente; en el mostrador se cobra a cada rato. El POS **debe seguir cobrando** —con
-   precios y promociones correctos— y **cuadrar las cuentas** cuando la red vuelva.
+   intermitente; en el mostrador se cobra a cada rato. El POS **debe seguir cobrando** con
+   precios y promociones correctos y **cuadrar las cuentas** cuando la red vuelva.
 2. **Tiene que poder replicarse por tienda** (multi-sucursal) sin rehacer el sistema, y
    **proteger los datos** (cada quien ve solo lo que le toca).
 
@@ -42,7 +42,7 @@ roles (admin/cajero). Con dos restricciones propias del entorno:
 
 ## Por qué esta versión de demostración
 
-Enseñar el POS real —a un cliente nuevo o a un reclutador— implicaba levantar un backend con
+Enseñar el POS real a un cliente nuevo o a un reclutador implicaba levantar un backend con
 credenciales y datos, y **cualquier prueba tocaba el sistema en producción** (la caja de una
 tienda que está operando). Esta build resuelve justo eso:
 
@@ -54,8 +54,8 @@ tienda que está operando). Esta build resuelve justo eso:
   devoluciones), para que la demostración se comporte igual que el sistema real.
 - **Catálogo real sembrado** al primer arranque (exportado del proyecto de producción).
 
-**Resultado:** cualquiera puede **abrir la app y ver funcionar el proyecto real** —con datos
-reales— sin instalar nada, sin credenciales y **sin posibilidad de afectar la tienda**. El
+**Resultado:** cualquiera puede **abrir la app y ver funcionar el proyecto real** con datos
+reales sin instalar nada, sin credenciales y **sin posibilidad de afectar la tienda**. El
 detalle técnico está en [`docs/ARQUITECTURA.md`](docs/ARQUITECTURA.md).
 
 ---
@@ -101,7 +101,7 @@ propia) y seguir operando sin conexión.
 - Ticket imprimible (58/80 mm), reimpresión y **cancelación/devolución** total o parcial
   (reingresa inventario). **Caja**: entradas/salidas de dinero del cajón.
 
-**Corte de caja** — por **turno** y por **día**: total, por método de pago, **efectivo
+**Corte de caja** por **turno** y por **día**: total, por método de pago, **efectivo
 esperado en cajón** (fondo + ventas − salidas + entradas − devoluciones) y desglose por
 producto/categoría.
 
@@ -121,13 +121,17 @@ y "Empezar de cero". (En la versión de nube, el respaldo lo da Supabase.)
 
 ## Capturas
 
-| Cobro con cambio | Ticket imprimible |
+| Envases retornables (depósito) | Cobro con cambio |
 |---|---|
-| ![Cobro](docs/img/cobro.png) | ![Ticket](docs/img/ticket.png) |
+| ![Envases retornables](docs/img/envases.png) | ![Cobro](docs/img/cobro.png) |
 
-| Corte de caja (turno) | Inventario por categorías |
+| Ticket con depósito de envase | Corte de caja (turno) |
 |---|---|
-| ![Corte de caja](docs/img/corte.png) | ![Inventario](docs/img/inventario.png) |
+| ![Ticket](docs/img/ticket.png) | ![Corte de caja](docs/img/corte.png) |
+
+**Inventario** — alertas de un vistazo: **lotes vencidos / por vencer** y **artículos bajos**:
+
+![Inventario con alertas de lotes y stock bajo](docs/img/inventario.png)
 
 Configuración por tienda (identidad, apariencia, envases, ticket, reglas, usuarios):
 
@@ -175,6 +179,3 @@ serve.py, Abrir POS.bat       servidor estático local (solo desarrollo)
 - **El sistema en producción** protege la privacidad con **RLS** (activo en todas las tablas)
   en Supabase y contraseñas por usuario; la *service_role key* nunca sale del backend.
 - El único riesgo del modo local es la pérdida del equipo → por eso el **respaldo `.json`**.
-
----
-Sistema por **Nodo Digital** · usanodo.com

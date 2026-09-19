@@ -35,24 +35,24 @@
   },
   "ENVASES": [
     {
-      "clave": "refresco_grande",
-      "nombre": "Refresco grande",
-      "deposito": 8
-    },
-    {
-      "clave": "individual",
-      "nombre": "Refresco individual",
-      "deposito": 5
-    },
-    {
       "clave": "mega",
-      "nombre": "Mega / misil",
+      "nombre": "Mega",
       "deposito": 10
     },
     {
-      "clave": "media_cuarto",
-      "nombre": "Media / cuarto",
+      "clave": "media",
+      "nombre": "Media",
       "deposito": 5
+    },
+    {
+      "clave": "cuarto",
+      "nombre": "Cuarto",
+      "deposito": 5
+    },
+    {
+      "clave": "refresco_grande",
+      "nombre": "Refresco retornable",
+      "deposito": 8
     }
   ],
   "NEGOCIO": {

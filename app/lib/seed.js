@@ -10,8 +10,18 @@ import { getAll, conTx, put, ahoraISO } from "./almacen.js";
 
 const STORES_CATALOGO = [
   "productos", "presentaciones", "promociones",
-  "promocion_presentaciones", "combos", "combo_items",
+  "promocion_presentaciones", "combos", "combo_items", "lotes",
 ];
+
+// Fecha (YYYY-MM-DD) a `dias` de hoy. Los lotes semilla guardan offsets relativos
+// (no fechas fijas) para que las alertas de "por vencer/vencido" sigan vigentes sin
+// importar cuándo se abra la demo por primera vez.
+function fechaRelativa(dias) {
+  const d = new Date();
+  d.setHours(0, 0, 0, 0);
+  d.setDate(d.getDate() + Number(dias || 0));
+  return d.toISOString().slice(0, 10);
+}
 
 async function traerJSON(ruta) {
   const r = await fetch(ruta, { cache: "no-store" });
@@ -44,6 +54,15 @@ export async function sembrarSiVacio() {
     for (const pp of cat.promocion_presentaciones || []) await api.put("promocion_presentaciones", pp);
     for (const c of cat.combos || []) await api.put("combos", { ...c, created_at: c.created_at || ahora });
     for (const ci of cat.combo_items || []) await api.put("combo_items", ci);
+    // Lotes de simulación (perecederos): offsets relativos → fechas al sembrar.
+    for (const l of cat.lotes || []) {
+      await api.put("lotes", {
+        id: l.id, producto_id: l.producto_id, cantidad: l.cantidad,
+        fecha_vencimiento: fechaRelativa(l.dias_vencimiento),
+        fecha_recepcion: fechaRelativa(l.dias_recepcion ?? -30),
+        created_at: ahora,
+      });
+    }
   });
 
   // Configuración inicial de la tienda (colores, envases, ticket, reglas).

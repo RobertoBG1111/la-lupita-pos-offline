@@ -20,10 +20,10 @@ export const CONFIG = {
   // Envases retornables: LISTA editable. Cada tipo = { clave, nombre, deposito }.
   // `clave` es el identificador estable que guarda cada producto en tipo_envase.
   ENVASES: [
-    { clave: "refresco_grande", nombre: "Refresco grande", deposito: 8 },
-    { clave: "individual",      nombre: "Refresco individual", deposito: 5 },
-    { clave: "mega",            nombre: "Mega / misil", deposito: 10 },
-    { clave: "media_cuarto",    nombre: "Media / cuarto", deposito: 5 },
+    { clave: "mega",            nombre: "Mega", deposito: 10 },
+    { clave: "media",           nombre: "Media", deposito: 5 },
+    { clave: "cuarto",          nombre: "Cuarto", deposito: 5 },
+    { clave: "refresco_grande", nombre: "Refresco retornable", deposito: 8 },
   ],
 
   // Apariencia: acento y fondo generales + color de la LÍNEA del carrito según su
