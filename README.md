@@ -15,6 +15,46 @@ abre y funciona **sin internet, sin backend y sin credenciales**.
 
 ---
 
+## El problema
+
+La tienda ya tiene un POS **en la nube** (Supabase). Funciona muy bien, pero deja dos
+huecos:
+
+1. **La venta no puede depender del internet.** En el mostrador se cobra a cada rato; si el
+   enlace se cae a media venta, la caja se detiene. Un POS de tienda tiene que **seguir
+   cobrando aunque no haya red**, con los precios y promociones correctos.
+2. **Demostrar el sistema requería levantar un backend.** Para enseñar el producto (a un
+   cliente nuevo, o a un reclutador) había que tener un proyecto Supabase con credenciales y
+   datos. No se podía simplemente *abrir y usar*.
+
+El reto técnico, entonces, era: **replicar TODAS las funciones y el catálogo real del POS
+oficial, pero que corra 100 % en el navegador** —sin backend, sin credenciales, sin
+internet— y sin mantener dos códigos distintos que se desincronicen.
+
+## La solución (decisiones de diseño)
+
+- **Una sola frontera: front-end compartido, capa de datos intercambiable.** El front-end y
+  el motor de precios (`lib/ventas.js`) son **idénticos** a los del POS oficial (verificado:
+  byte a byte). Las pantallas se copian 1:1 y solo cambia el import de datos
+  (`db.js` → `datos.js`). Así las dos versiones evolucionan juntas en vez de bifurcarse.
+- **La lógica de negocio del servidor, reimplementada en el cliente.** Lo que en la nube
+  vive en *triggers* y RPC de Postgres (venta atómica, validación de pagos, descuento de
+  inventario con **FEFO**, ajuste que sobrescribe, devoluciones) se reescribió en JavaScript
+  sobre **IndexedDB**, exponiendo la **misma API y el mismo *shape* de datos** — para que las
+  pantallas no distingan de dónde vienen.
+- **Lo que solo aplica en la nube se neutraliza sin tocar el front-end.** Los módulos de
+  conexión/cola quedan como *stubs* no-op (offline siempre está "en línea" con sus datos).
+- **El catálogo real, sembrado localmente.** Se exportó del Supabase oficial (602 productos,
+  604 presentaciones, 7 promociones, 2 combos) y se carga al primer arranque, así la demo
+  arranca con datos de verdad.
+- **PWA instalable** para que quede como app de escritorio y funcione sin conexión.
+
+**Resultado:** un POS que se abre con `python serve.py` (o instalándolo como app) y funciona
+completo, sin nada más. El detalle de la arquitectura está en
+[`docs/ARQUITECTURA.md`](docs/ARQUITECTURA.md).
+
+---
+
 ## Cómo correrlo (30 segundos)
 
 Es una app estática servida desde `app/`:
