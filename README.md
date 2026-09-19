@@ -1,57 +1,62 @@
-# La Lupita POS — Punto de venta offline (PWA)
+# Modelorama "La Lupita" — POS (demostración pública)
 
-Punto de venta web **100 % local / offline** para la tienda Modelorama **"La Lupita"**
-(Tixpéhual, Yucatán). Corre como **PWA instalable** (HTML + CSS + JavaScript con módulos
-ES, **sin framework ni bundler**) y guarda todo en **IndexedDB** del propio equipo: se
-abre y funciona **sin internet, sin backend y sin credenciales**.
+**Demostración autocontenida de un punto de venta real en producción.** El sistema real
+—construido para la tienda Modelorama **"La Lupita"** (Tixpéhual, Yucatán)— corre como **PWA
+sobre Supabase** (Postgres + Auth + Edge Functions) y está **en uso en el mostrador**. Este
+repositorio es una **build de demostración** de ese mismo proyecto, corriendo **100 % en el
+navegador** (IndexedDB, sin backend ni credenciales), para **enseñar la funcionalidad real
+sin exponer ni arriesgar el POS de producción**.
 
-> Es la versión offline, hermana del producto oficial en la nube
-> (`la_lupita_modelorama`, sobre Supabase). Comparten front-end y motor de precios; lo
-> único que cambia es la **capa de datos**. Este repo demuestra el diseño, la planeación
-> y el resultado: replica **todas las funciones y el catálogo real** (602 productos) del
-> POS oficial, corriendo por completo en el navegador.
+> Mismo front-end y mismo motor de precios que el sistema real; lo único que cambia es la
+> **capa de datos** (nube → local). Por eso la demostración es **fiel** a la funcionalidad
+> real —con el **catálogo real** (602 productos)— y a la vez **no puede comprometer la
+> tienda**: aquí no hay credenciales, ni datos de producción, ni backend que tocar.
 
 ![Pantalla de Venta con búsqueda del catálogo real, promociones y varios tickets](docs/img/venta.png)
 
 ---
 
-## El problema
+## El problema (del proyecto real)
 
-La tienda ya tiene un POS **en la nube** (Supabase). Funciona muy bien, pero deja dos
-huecos:
+La tienda necesitaba un punto de venta a la altura de su operación: catálogo grande con
+**códigos de barras**, control de **inventario** (lotes y caducidad / FEFO), **cortes** por
+turno y por día, **promociones, combos y envases retornables**, y **varios cajeros** con
+roles (admin/cajero). Con dos restricciones propias del entorno:
 
-1. **La venta no puede depender del internet.** En el mostrador se cobra a cada rato; si el
-   enlace se cae a media venta, la caja se detiene. Un POS de tienda tiene que **seguir
-   cobrando aunque no haya red**, con los precios y promociones correctos.
-2. **Demostrar el sistema requería levantar un backend.** Para enseñar el producto (a un
-   cliente nuevo, o a un reclutador) había que tener un proyecto Supabase con credenciales y
-   datos. No se podía simplemente *abrir y usar*.
+1. **La venta no puede detenerse si se cae el internet.** La conexión en la zona es
+   intermitente; en el mostrador se cobra a cada rato. El POS **debe seguir cobrando** —con
+   precios y promociones correctos— y **cuadrar las cuentas** cuando la red vuelva.
+2. **Tiene que poder replicarse por tienda** (multi-sucursal) sin rehacer el sistema, y
+   **proteger los datos** (cada quien ve solo lo que le toca).
 
-El reto técnico, entonces, era: **replicar TODAS las funciones y el catálogo real del POS
-oficial, pero que corra 100 % en el navegador** —sin backend, sin credenciales, sin
-internet— y sin mantener dos códigos distintos que se desincronicen.
+## La solución (el sistema real)
 
-## La solución (decisiones de diseño)
+- **PWA instalable sobre Supabase** (Postgres + **RLS** + Auth + Edge Functions), sin
+  framework ni bundler. Se instala como app de escritorio y se hostea en Vercel.
+- **La lógica de negocio crítica vive en la base** (triggers + el RPC `registrar_venta`):
+  venta atómica, descuento de inventario con **FEFO**, total = suma de subtotales, validación
+  de pagos y devoluciones. La app usa solo la *anon key*; la privacidad la garantiza RLS.
+- **Modo sin conexión**: cachea el catálogo, **encola** las ventas descontando el stock local
+  y, al volver la red, las **reinyecta sin duplicarlas**.
+- **Multi-tienda** (un proyecto Supabase por sucursal) y **gestión de usuarios** por rol.
 
-- **Una sola frontera: front-end compartido, capa de datos intercambiable.** El front-end y
-  el motor de precios (`lib/ventas.js`) son **idénticos** a los del POS oficial (verificado:
-  byte a byte). Las pantallas se copian 1:1 y solo cambia el import de datos
-  (`db.js` → `datos.js`). Así las dos versiones evolucionan juntas en vez de bifurcarse.
-- **La lógica de negocio del servidor, reimplementada en el cliente.** Lo que en la nube
-  vive en *triggers* y RPC de Postgres (venta atómica, validación de pagos, descuento de
-  inventario con **FEFO**, ajuste que sobrescribe, devoluciones) se reescribió en JavaScript
-  sobre **IndexedDB**, exponiendo la **misma API y el mismo *shape* de datos** — para que las
-  pantallas no distingan de dónde vienen.
-- **Lo que solo aplica en la nube se neutraliza sin tocar el front-end.** Los módulos de
-  conexión/cola quedan como *stubs* no-op (offline siempre está "en línea" con sus datos).
-- **El catálogo real, sembrado localmente.** Se exportó del Supabase oficial (602 productos,
-  604 presentaciones, 7 promociones, 2 combos) y se carga al primer arranque, así la demo
-  arranca con datos de verdad.
-- **PWA instalable** para que quede como app de escritorio y funcione sin conexión.
+## Por qué esta versión de demostración
 
-**Resultado:** un POS que se abre con `python serve.py` (o instalándolo como app) y funciona
-completo, sin nada más. El detalle de la arquitectura está en
-[`docs/ARQUITECTURA.md`](docs/ARQUITECTURA.md).
+Enseñar el POS real —a un cliente nuevo o a un reclutador— implicaba levantar un backend con
+credenciales y datos, y **cualquier prueba tocaba el sistema en producción** (la caja de una
+tienda que está operando). Esta build resuelve justo eso:
+
+- **Misma app, capa de datos intercambiada a IndexedDB.** El front-end y el motor de precios
+  (`lib/ventas.js`) son **idénticos** a los de producción (verificado byte a byte); las
+  pantallas solo cambian el import `db.js → datos.js`.
+- **La lógica que en producción vive en el servidor, reimplementada en el cliente** con la
+  **misma API y el mismo *shape* de datos** (venta atómica, FEFO, validación de pagos,
+  devoluciones), para que la demostración se comporte igual que el sistema real.
+- **Catálogo real sembrado** al primer arranque (exportado del proyecto de producción).
+
+**Resultado:** cualquiera puede **abrir la app y ver funcionar el proyecto real** —con datos
+reales— sin instalar nada, sin credenciales y **sin posibilidad de afectar la tienda**. El
+detalle técnico está en [`docs/ARQUITECTURA.md`](docs/ARQUITECTURA.md).
 
 ---
 
@@ -78,6 +83,8 @@ propia) y seguir operando sin conexión.
 ---
 
 ## Qué hace
+
+*Estas son las funciones del sistema real, todas operables en esta demostración:*
 
 **Venta**
 - Lector de código de barras (captura global, tipo teclado) y **buscador por nombre** con
@@ -137,10 +144,10 @@ Configuración por tienda (identidad, apariencia, envases, ticket, reglas, usuar
   venta atómica, afectación de inventario, FEFO, validación de pagos, ajuste que
   sobrescribe, devoluciones con reingreso, y cortes por turno/día.
 - **Frontera de diseño**: el front-end y el motor de precios (`lib/ventas.js`) son
-  **idénticos** a los del POS oficial; solo cambia el import de la capa de datos
+  **idénticos** a los del sistema en producción; solo cambia el import de la capa de datos
   (`datos.js` ↔ `db.js`). Ver [`docs/ARQUITECTURA.md`](docs/ARQUITECTURA.md).
-- **Siembra**: `lib/seed.js` carga `data/catalogo.json` (catálogo real exportado del POS
-  oficial) y `data/config-inicial.json` (configuración de la tienda) en el primer arranque.
+- **Siembra**: `lib/seed.js` carga `data/catalogo.json` (catálogo real exportado del proyecto
+  en producción) y `data/config-inicial.json` (configuración de la tienda) en el primer arranque.
 - **PWA**: `sw.js` (precache network-first del shell + catálogo) y `manifest.webmanifest`.
 
 ```
@@ -162,9 +169,12 @@ serve.py, Abrir POS.bat       servidor estático local (solo desarrollo)
 
 ## Seguridad y privacidad
 
-- Todo es local: no hay red ni nube. Las contraseñas se guardan con **PBKDF2** (Web
-  Crypto), nunca en claro. No hay claves de terceros en el repo.
-- El riesgo del modelo offline es la pérdida del equipo → por eso el **respaldo `.json`**.
+- **Esta demostración** es 100 % local: no hay red ni nube, ni claves de terceros en el repo,
+  ni datos de producción. Las contraseñas se guardan con **PBKDF2** (Web Crypto), nunca en
+  claro. Por diseño, no puede tocar el POS de producción.
+- **El sistema en producción** protege la privacidad con **RLS** (activo en todas las tablas)
+  en Supabase y contraseñas por usuario; la *service_role key* nunca sale del backend.
+- El único riesgo del modo local es la pérdida del equipo → por eso el **respaldo `.json`**.
 
 ---
 Sistema por **Nodo Digital** · usanodo.com
