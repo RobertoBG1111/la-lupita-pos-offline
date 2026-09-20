@@ -67,9 +67,23 @@ export const reportes = {
       h("h3", { class: "corte-h3" }, "Para decidir esta semana"),
       h("div", { class: "glass card decidir" },
         ...(bajos.length || lotesAlerta.length ? [
-          ...lotesAlerta.map((l) => h("div", { class: "decidir-fila" },
-            h("span", { class: "chip " + (l.estado === "vencido" ? "chip-peligro" : "chip-adv") }, l.estado === "vencido" ? "vencido" : "por vencer"),
-            h("span", {}, `${l.producto}: ${Number(l.cantidad)} pz, vence en ${l.dias_para_vencer} día(s) — remátalo.`))),
+          ...lotesAlerta.map((l) => {
+            const d = Number(l.dias_para_vencer);
+            const n = Number(l.cantidad);
+            // Vencido = ya es merma (retirar). ≤10 días = remátalo. 11–30 = vigílalo.
+            let chip, etiqueta, msg;
+            if (l.estado === "vencido" || d < 0) {
+              chip = "chip-peligro"; etiqueta = "merma";
+              msg = `${l.producto}: ${n} pz — venció hace ${Math.abs(d)} día(s), retíralo (merma).`;
+            } else if (d <= 10) {
+              chip = "chip-adv"; etiqueta = "remate";
+              msg = `${l.producto}: ${n} pz, vence en ${d} día(s) — remátalo.`;
+            } else {
+              chip = "chip-tenue"; etiqueta = "por vencer";
+              msg = `${l.producto}: ${n} pz, vence en ${d} día(s) — vigílalo.`;
+            }
+            return h("div", { class: "decidir-fila" }, h("span", { class: "chip " + chip }, etiqueta), h("span", {}, msg));
+          }),
           ...bajos.map((b) => h("div", { class: "decidir-fila" },
             h("span", { class: "chip chip-adv" }, "stock bajo"),
             h("span", {}, `${b.nombre}: quedan ${Number(b.stock_actual)} — conviene resurtir.`))),
