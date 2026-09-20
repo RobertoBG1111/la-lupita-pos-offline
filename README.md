@@ -358,6 +358,3 @@ serve.py, Abrir POS.bat       local static server (development only)
 - The only risk of local mode is losing the machine → hence the **`.json` backup**.
 
 </details>
-
----
-Sistema por **Nodo Digital** · usanodo.com
