@@ -1,3 +1,5 @@
+<!-- Idioma / Language --> **Español** · [English](README.en.md)
+
 # Modelorama "La Lupita" — POS (demostración pública)
 
 **Demostración autocontenida de un punto de venta real en producción.** El sistema real
@@ -153,6 +155,9 @@ Configuración por tienda (identidad, apariencia, envases, ticket, reglas, usuar
 - **Siembra**: `lib/seed.js` carga `data/catalogo.json` (catálogo real exportado del proyecto
   en producción) y `data/config-inicial.json` (configuración de la tienda) en el primer arranque.
 - **PWA**: `sw.js` (precache network-first del shell + catálogo) y `manifest.webmanifest`.
+- **Modelo de datos**: cada *object store* de IndexedDB equivale a una tabla del Postgres de
+  producción. El detalle campo por campo está en el
+  [**diccionario de datos**](docs/DICCIONARIO_DATOS.md).
 
 ```
 app/
