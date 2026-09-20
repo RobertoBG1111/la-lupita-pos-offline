@@ -1,4 +1,4 @@
-# Modelorama "La Lupita" — POS
+# Modelorama "La Lupita" - POS
 
 *Demostración pública (100 % offline) del POS real de la tienda. · Public demo (100 % offline) of the store's real POS.*
 
@@ -11,7 +11,7 @@
 <!-- ─────────────────────────────  ESPAÑOL  ───────────────────────────── -->
 <details open>
 <summary><b>🇲🇽 Español</b></summary>
-   
+
 ### Mi rol en este proyecto
 Soy analista de datos (no desarrollador web). Lo que es mío en este proyecto:
 - Detecté el problema de datos y definí las **reglas de negocio** que el sistema debía respetar: multi-presentación con stock base único, depósito de envases retornables, promociones por cantidad y combos.
@@ -24,7 +24,7 @@ La **implementación técnica** (código de la app, triggers, RPC, capa offline)
 
 **Demostración autocontenida de un punto de venta real en producción.** El sistema real
 construido para la tienda Modelorama **"La Lupita"** (Tixpéhual, Yucatán) corre como **PWA
-sobre Supabase** (Postgres + Auth + Edge Functions) y está **en uso en el mostrador**. Este
+sobre Supabase** (Postgres + Auth + Edge Functions) y **opera en paralelo con el punto de venta anterior, reemplazándolo de forma gradual**. Este
 repositorio es una **build de demostración** de ese mismo proyecto, corriendo **100 % en el
 navegador** (IndexedDB, sin backend ni credenciales), para **enseñar la funcionalidad real
 sin exponer ni arriesgar el POS de producción**.
@@ -118,16 +118,16 @@ propia) y seguir operando sin conexión.
 esperado en cajón** (fondo + ventas − salidas + entradas − devoluciones) y desglose por
 producto/categoría.
 
-**Inventario** — alta de productos y presentaciones; movimientos de **entrada / merma /
+**Inventario**: alta de productos y presentaciones; movimientos de **entrada / merma /
 ajuste** (el ajuste *sobrescribe* la existencia real); **lotes y vencimiento (FEFO)**;
 alertas de stock bajo; agrupado por categoría; borrado protegido (no borra lo ya vendido).
 
-**Administración** — Combos, Promociones y Reportes (KPIs por rango). **Usuarios** locales
+**Administración**: Combos, Promociones y Reportes (KPIs por rango). **Usuarios** locales
 (alta / reset / desactivar, con hash PBKDF2). **Configuración por tienda**: identidad,
 apariencia (colores en vivo), lista de envases, ticket y reglas (métodos de pago,
 redondeo, empaques, permiso de devoluciones).
 
-**Respaldo** — como todo vive en este equipo, hay **Exportar / Importar** respaldo `.json`
+**Respaldo**: como todo vive en este equipo, hay **Exportar / Importar** respaldo `.json`
 y "Empezar de cero". (En la versión de nube, el respaldo lo da Supabase.)
 
 ### Capturas
@@ -208,7 +208,7 @@ The **technical implementation** (app code, triggers, RPC, offline layer) was **
 
 **A self-contained demo of a real point-of-sale system running in production.** The real
 system built for the store Modelorama **"La Lupita"** (Tixpéhual, Yucatán, Mexico) runs as a
-**PWA on Supabase** (Postgres + Auth + Edge Functions) and is **in daily use at the counter**.
+**PWA on Supabase** (Postgres + Auth + Edge Functions) and **currently operates in parallel with the previous point-of-sale system, gradually replacing it**.
 This repository is a **demo build** of that same project, running **100% in the browser**
 (IndexedDB, no backend, no credentials), so anyone can **see the real functionality without
 exposing or risking the production POS**.
@@ -302,16 +302,16 @@ keep operating offline.
 **Cash-up** per **shift** and per **day**: total, by payment method, **expected cash in drawer**
 (float + sales − payouts + pay-ins − refunds) and a breakdown by product/category.
 
-**Inventory** — create products and presentations; **stock-in / shrinkage / adjustment** moves
+**Inventory**: create products and presentations; **stock-in / shrinkage / adjustment** moves
 (adjustment *overwrites* the real counted quantity); **lots and expiry (FEFO)**; low-stock
 alerts; grouped by category; protected delete (won't delete what has already been sold).
 
-**Administration** — Combos, Promotions and Reports (KPIs by range). Local **users** (create /
+**Administration**: Combos, Promotions and Reports (KPIs by range). Local **users** (create /
 reset / deactivate, with PBKDF2 hashing). **Per-store configuration**: identity, appearance
 (live colors), list of container types, receipt and rules (payment methods, rounding, packs,
 who may issue returns).
 
-**Backup** — since everything lives on this machine, there's **Export / Import** `.json` backup
+**Backup**: since everything lives on this machine, there's **Export / Import** `.json` backup
 and "Start from scratch". (In the cloud version, backup is handled by Supabase.)
 
 ### Screenshots
