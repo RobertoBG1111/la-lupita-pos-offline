@@ -11,6 +11,14 @@
 <!-- ─────────────────────────────  ESPAÑOL  ───────────────────────────── -->
 <details open>
 <summary><b>🇲🇽 Español</b></summary>
+   
+### Mi rol en este proyecto
+Soy analista de datos (no desarrollador web). Lo que es mío en este proyecto:
+- Detecté el problema de datos y definí las **reglas de negocio** que el sistema debía respetar: multi-presentación con stock base único, depósito de envases retornables, promociones por cantidad y combos.
+- Diseñé y **validé el modelo de datos** (esquema de Postgres/Supabase), revisando cada entrega antes y después de integrarla.
+- Ejecuté la **migración** del catálogo real (602 productos con sus presentaciones, promociones y combos) desde el sistema anterior.
+
+La **implementación técnica** (código de la app, triggers, RPC, capa offline) se construyó **asistida por IA bajo mi dirección y revisión**: yo especifiqué qué debía hacer, revisé el resultado y validé que la lógica de negocio y los cálculos fueran correctos.
 
 ## Qué es
 
@@ -187,6 +195,14 @@ serve.py, Abrir POS.bat       servidor estático local (solo desarrollo)
 <!-- ─────────────────────────────  ENGLISH  ───────────────────────────── -->
 <details>
 <summary><b>🇬🇧 English</b></summary>
+
+### My role in this project
+I'm a data analyst (not a web developer). What's mine here:
+- I identified the data problem and defined the **business rules** the system had to enforce: multi-presentation with a single base stock, returnable-container deposits, quantity promotions and combos.
+- I designed and **validated the data model** (Postgres/Supabase schema), reviewing each delivery before and after integrating it.
+- I ran the **migration** of the real catalog (602 products with their presentations, promotions and combos) from the previous system.
+
+The **technical implementation** (app code, triggers, RPC, offline layer) was **AI-assisted, under my direction and review**: I specified what it had to do, reviewed the output, and validated that the business logic and calculations were correct.
 
 ## What it is
 
